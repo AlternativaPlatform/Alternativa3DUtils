@@ -14,6 +14,8 @@ package alternativa.utils.templates {
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
+	import flash.events.KeyboardEvent;
+	import flash.ui.Keyboard;
 
 	public class DefaultSceneTemplate extends Sprite {
 
@@ -42,7 +44,7 @@ package alternativa.utils.templates {
 			scene = new Object3D();
 
 			mainCamera = new Camera3D(10, 10000);
-			mainCamera.view = new View(100, 100, false, 0, 1, 4);
+			mainCamera.view = new View(stage.stageWidth, stage.stageHeight, false, 0, 1, 4);
 			scene.addChild(mainCamera);
 
 			addChild(mainCamera.view);
@@ -64,6 +66,7 @@ package alternativa.utils.templates {
 
 			addEventListener(Event.ENTER_FRAME, onEnterFrame);
 			stage.addEventListener(Event.RESIZE, onResize);
+			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 			onResize();
 		}
 
@@ -97,6 +100,12 @@ package alternativa.utils.templates {
 		protected function onResize(event:Event = null):void {
 			mainCamera.view.width = stage.stageWidth;
 			mainCamera.view.height = stage.stageHeight;
+		}
+
+		protected function onKeyDown(event:KeyboardEvent):void {
+			if (event.keyCode == Keyboard.T) {
+				trace("mainCamera.matrix = new Matrix3D(Vector.<Number>([" + mainCamera.matrix.rawData + "]))");
+			}
 		}
 
 	}
