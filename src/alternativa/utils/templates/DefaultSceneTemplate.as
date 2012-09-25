@@ -35,7 +35,7 @@ package alternativa.utils.templates {
 			}
 		}
 
-		private function init():void {
+		private function init(e:Event = null):void {
 			stage.removeEventListener(Event.ADDED_TO_STAGE, init);
 
 			stage.scaleMode = StageScaleMode.NO_SCALE;
@@ -54,11 +54,15 @@ package alternativa.utils.templates {
 			resourceManager = new ResourceManager(scene);
 
 			stage3D = stage.stage3Ds[0];
-			stage3D.addEventListener(Event.CONTEXT3D_CREATE, onContext3DCreate);
-			stage3D.requestContext3D();
+			if (stage3D.context3D != null) {
+				onContext3DCreate();
+			} else {
+				stage3D.addEventListener(Event.CONTEXT3D_CREATE, onContext3DCreate);
+				stage3D.requestContext3D();
+			}
 		}
 
-		private function onContext3DCreate(e:Event):void {
+		private function onContext3DCreate(e:Event = null):void {
 			resourceManager.context3D = stage3D.context3D;
 
 			initController();
@@ -100,6 +104,7 @@ package alternativa.utils.templates {
 		protected function onResize(event:Event = null):void {
 			mainCamera.view.width = stage.stageWidth;
 			mainCamera.view.height = stage.stageHeight;
+			mainCamera.render(stage3D);
 		}
 
 		protected function onKeyDown(event:KeyboardEvent):void {
