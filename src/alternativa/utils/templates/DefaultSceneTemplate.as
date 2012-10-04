@@ -71,6 +71,7 @@ package alternativa.utils.templates {
 			addEventListener(Event.ENTER_FRAME, onEnterFrame);
 			stage.addEventListener(Event.RESIZE, onResize);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+			stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
 			onResize();
 		}
 
@@ -111,6 +112,9 @@ package alternativa.utils.templates {
 			if (event.keyCode == Keyboard.T) {
 				trace("mainCamera.matrix = new Matrix3D(Vector.<Number>([" + mainCamera.matrix.rawData + "]))");
 			}
+		}
+
+		protected function onKeyUp(event:KeyboardEvent):void {
 		}
 
 	}
